@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useDataContext } from '../DataProvider'
 
-const First = () => {
+export const First = () => {
     const {
         kartyak,
         setKartyak,
@@ -13,7 +13,24 @@ const First = () => {
         players,
         setPlayers
     } = useDataContext()
+
     const [data, setData] = useState()
+
+    const navigate = useNavigate();
+
+    function addPlayers() {
+        /* Maximum 10 játékos */
+        if (players.length <= 9) {
+            setPlayers([...players, data])
+        }
+    }
+
+    function minPlayers() {
+        /* Legalább 4 játékos */
+        if(players.length >= 4) {
+            navigate('/Second')
+        }
+    }
     
     console.log(players)
     return (
@@ -24,10 +41,8 @@ const First = () => {
                     whois: ""
                 });
              }} />
-             <button onClick={()=>{setPlayers([... players, data])}}>Add</button>
-            <Link to="/Second"><button>Start</button></Link>
+             <button onClick={addPlayers}>Add</button>
+            <button onClick={minPlayers}>Start</button>
         </div>
     );
 }
-
-export default First
