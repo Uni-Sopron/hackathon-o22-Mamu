@@ -1,0 +1,14 @@
+{
+    "kutya":["eb","kutyus","kutyuli","véreb","kutyu","házőrző"],
+    "szék":["ülés","ülőhely","ülőke","puff","ülőke","zsámoly","hokedli","sámli","ülőalkalmatosság"],
+    "számítógép":["PC","gép"],
+    "telefon":["mobiltelefon","mobil","telcsi","távbeszélő","teló"],
+    "kard":["szablya","tör","pallos"],
+    "álom":["délibáb","ábránd","illúzió","látomás","álomkép"],
+    "korona":["fejdísz","fejék","diadém","tiara","párta"],
+    "érme":["pénz","fizetőeszköz","bankjegy","zseton","kápé","lé","lóvé"],
+    "ház":["épület","lakás","ingatlan","otthon","kecó"],
+    "harcos":["katona"],
+    "egér":["rágcsáló","cincogó","cinci"],
+    "papa":["fater","atya","apuka","nagyapa","tata","fater","nagyfater"]
+    }
