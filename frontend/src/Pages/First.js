@@ -20,7 +20,7 @@ export const First = () => {
 
   function addPlayers() {
     /* Maximum 10 játékos */
-    if (players.length <= 9) {
+    if (players.length < 10) {
       setPlayers([...players, data]);
     }
   }
