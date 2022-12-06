@@ -90,7 +90,7 @@ export const First = () => {
           Játék indítása
         </button>
         <div className="first__players">
-          <span className="text-center">Időzítő</span>
+          <span className="text-center-players">Időzítő</span>
           <div className="input-container">
             <input
               type="number"
