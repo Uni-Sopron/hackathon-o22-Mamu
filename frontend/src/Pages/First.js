@@ -33,11 +33,10 @@ export const First = () => {
 
   function minPlayers() {
     /* Legalább 4 játékos */
-    if (players.length >= 4) {
-
+    if (players.length >= 4 && timerdata !== 0) {
       navigate("/Second");
     } else {
-      toast.error("Minimum 4 játékos szükséges!", {
+      toast.error("Minimum 4 játékos és időzítő beállítása szükséges!", {
         position: "top-center",
         autoClose: 1500,
         hideProgressBar: true,
