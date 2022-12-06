@@ -20,7 +20,7 @@ export const First = () => {
   } = useDataContext();
 
   const [data, setData] = useState();
-  const [timerdata, setTimerdata] = useState(0);
+  const [timerdata, setTimerdata] = useState(1);
 
   const navigate = useNavigate();
 
@@ -33,10 +33,11 @@ export const First = () => {
 
   function minPlayers() {
     /* Legalább 4 játékos */
-    if (players.length >= 4 && timerdata !== 0) {
+    if (players.length >= 4) {
+
       navigate("/Second");
     } else {
-      toast.error("Minimum 4 játékos és időzítő beállítása szükséges!", {
+      toast.error("Minimum 4 játékos szükséges!", {
         position: "top-center",
         autoClose: 1500,
         hideProgressBar: true,
@@ -74,7 +75,9 @@ export const First = () => {
           />
           <label>Játékos neve</label>
         </div>
-        <button type="button" className="btn" onClick={addPlayers}>
+        <button type="button" className="btn" onClick={()=> {
+            addPlayers({name: data, whois: 0})
+            }}>
           Hozzáadás
         </button>
         <div className="first__players">
@@ -89,20 +92,21 @@ export const First = () => {
           Játék indítása
         </button>
         <div className="first__players">
-          <span className="text-center-players">Időzítő</span>
+          <span className="text-center">Időzítő</span>
           <div className="input-container">
             <input
+              value={timerdata}
               type="number"
               className="form__field"
-              onChange={(e) => setTimerdata(e.target.value)}
+              onChange={(e) => {
+                setTimerdata(e.target.value)
+                timerSet()
+              }}
               required
             />
             <label>Hány perc</label>
           </div>
         </div>
-        <button type="button" className="btn" onClick={timerSet}>
-          Beállítás
-        </button>
       </div>
       <ToastContainer />
     </>
