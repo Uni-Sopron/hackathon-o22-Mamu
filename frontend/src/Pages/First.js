@@ -21,6 +21,8 @@ export const First = () => {
 
   const [data, setData] = useState();
   const [timerdata, setTimerdata] = useState(1);
+  const [avaible, setAvaible] = useState([]);
+  const [playersHasRole, setplayersHasRole] = useState([])
 
   const navigate = useNavigate();
 
@@ -40,7 +42,7 @@ export const First = () => {
 
   function minPlayers() {
     /* Legalább 4 játékos */
-    if (players.length >= 4) {
+    if (players.length >= 4) {      
       navigate("/Second");
     } else {
       toast.error("Minimum 4 játékos szükséges!", {
