@@ -6,7 +6,8 @@ export const DataProvider = ({ children }) => {
     const [tipsDreamer, setTipsDreamer] = useState([])
     const [tipsPlayers, setTipsPlayers] = useState([])
     const [players, setPlayers] = useState([]) // [{name:player1, point:0, whatis:{}}]
-    const [timer, setTimer] = useState(0);
+    const [timer, setTimer] = useState(1);
+    const [roles, setRoles] = useState([{0: 'Tündér', 1: 'Mumus', 2: 'Álommanó', 3: 'Álmodó'}])
 
     const datas = {
         kartyak,
@@ -19,6 +20,7 @@ export const DataProvider = ({ children }) => {
         setPlayers,
         timer,
         setTimer,
+        roles,
     }    
     
     return (

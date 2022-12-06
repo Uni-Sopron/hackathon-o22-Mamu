@@ -24,17 +24,23 @@ export const First = () => {
 
   const navigate = useNavigate();
 
+  function getRandomInt(max) {
+    return Math.floor(Math.random() * max);
+  }
+
   function addPlayers() {
     /* Maximum 10 játékos */
     if (players.length <= 9 && data.length !== 0) {
-      setPlayers([...players, data]);
+      setPlayers([
+        ...players,
+        { name: data, point: 0, whois: getRandomInt(4) },
+      ]);
     }
   }
 
   function minPlayers() {
     /* Legalább 4 játékos */
     if (players.length >= 4) {
-
       navigate("/Second");
     } else {
       toast.error("Minimum 4 játékos szükséges!", {
@@ -51,14 +57,7 @@ export const First = () => {
     /* Timer beállítása */
     if (timerdata !== 0) {
       setTimer(timerdata);
-    } else {
-      toast.error("Állíts időzítőt!", {
-        position: "top-center",
-        autoClose: 1500,
-        hideProgressBar: true,
-        closeOnClick: true,
-        theme: "colored",
-      });
+      console.log(timerdata);
     }
   }
 
@@ -75,16 +74,20 @@ export const First = () => {
           />
           <label>Játékos neve</label>
         </div>
-        <button type="button" className="btn" onClick={()=> {
-            addPlayers({name: data, whois: 0})
-            }}>
+        <button
+          type="button"
+          className="btn"
+          onClick={() => {
+            addPlayers();
+          }}
+        >
           Hozzáadás
         </button>
         <div className="first__players">
           <span className="text-center-players">Játékos lista</span>
           <ul>
             {players.map((player, index) => (
-              <li key={index}>{player}</li>
+              <li key={index}>{player.name}</li>
             ))}
           </ul>
         </div>
@@ -99,8 +102,8 @@ export const First = () => {
               type="number"
               className="form__field"
               onChange={(e) => {
-                setTimerdata(e.target.value)
-                timerSet()
+                setTimerdata(e.target.value);
+                timerSet();
               }}
               required
             />
