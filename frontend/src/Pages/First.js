@@ -98,13 +98,17 @@ export const First = () => {
               value={timerdata}
               type="number"
               className="form__field"
+              style={{
+                width: "30px",
+                marginLeft: "110px"
+              }}
               onChange={(e) => {
                 setTimerdata(e.target.value)
                 timerSet()
               }}
               required
             />
-            <label>Hány perc</label>
+            <label style={{marginLeft: "95px"}}>Hány perc</label>
           </div>
         </div>
       </div>
