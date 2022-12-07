@@ -17,6 +17,7 @@ export const First = () => {
     setPlayers,
     timer,
     setTimer,
+    roleCount
   } = useDataContext();
 
   const [data, setData] = useState();
@@ -33,11 +34,18 @@ export const First = () => {
   function addPlayers() {
     /* Maximum 10 játékos */
     if (players.length <= 9 && data.length !== 0) {
+
       setPlayers([
         ...players,
-        { name: data, point: 0, whois: getRandomInt(4) },
+        { name: data, point: 0, whois: /*getRandomInt(4)*/ 0 },
       ]);
+/*
+      for (let player of players) {
+        console.log(player);
+      } 
+      */
     }
+    
   }
 
   function minPlayers() {

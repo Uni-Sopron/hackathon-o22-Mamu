@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { useDataContext } from "../DataProvider";
 import { useTimer } from "react-timer-hook";
 import "../styles/Second.css";
@@ -13,7 +13,7 @@ function MyTimer({ expiryTimestamp }) {
       onExpire: () => alert("Lejárt az idő!"),
     }
   );
-  const { players, timer, roles } = useDataContext();
+  const { players, timer, roles, getSzo, kitalalando } = useDataContext();
 
   function showRoles() {
     toast.info(
@@ -30,6 +30,10 @@ function MyTimer({ expiryTimestamp }) {
       }
     );
   }
+
+  useEffect(() => {
+    getSzo()
+  }, []); // egyszer fut le, első rendernél
 
   return (
     <>
@@ -58,9 +62,18 @@ function MyTimer({ expiryTimestamp }) {
           >
             Szerepek
           </button>
+          
+          <div>
+            {kitalalando && <img src={kitalalando.pic} width="250" height="300"></img>}
+            <h2 style={{color: "white"}}>{kitalalando && kitalalando.name}</h2>
+          </div>
+          <input placeholder="utalás"/>
+          <button>OK</button>
+
         </div>
       </div>
       <ToastContainer />
+
     </>
   );
 }
@@ -69,6 +82,7 @@ export const Second = () => {
   const { timer } = useDataContext();
   const time = new Date();
   time.setSeconds(time.getSeconds() + timer * 60);
+
   return (
     <div>
       <MyTimer expiryTimestamp={time} />
