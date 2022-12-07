@@ -8,7 +8,7 @@ import "react-toastify/dist/ReactToastify.css";
 function MyTimer({ expiryTimestamp }) {
   const { seconds, minutes, hours, isRunning, start, pause, resume } = useTimer(
     {
-      autoStart: false,
+      autoStart: true,//false ,
       expiryTimestamp,
       onExpire: () => alert("Lejárt az idő!"),
     }
@@ -42,17 +42,21 @@ function MyTimer({ expiryTimestamp }) {
           <span>{hours}</span>:<span>{minutes}</span>:<span>{seconds}</span>
         </div>
         <p className="text-center-p">
-          {isRunning ? "Játék folyamatban." : "Játék indításra vár."}
+          {isRunning ? "Játék folyamatban." : "Játék szüneteltetve."}
         </p>
         <div className="button-group">
+          {/*
           <button className="btn" onClick={start}>
             Indítás
           </button>
+          
+            {/*
           <button className="btn" onClick={pause}>
             Szünet
           </button>
-          <button className="btn" onClick={resume}>
-            Folytatás
+          */}
+          <button className="btn" onClick={isRunning ? pause: resume}>
+            Szünet/Folytatás
           </button>
           <button
             className="btn"
