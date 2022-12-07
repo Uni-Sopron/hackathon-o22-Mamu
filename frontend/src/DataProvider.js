@@ -26,7 +26,7 @@ export const DataProvider = ({ children }) => {
     const [timer, setTimer] = useState(1);
     const [roles, setRoles] = useState([{0: 'Tündér', 1: 'Mumus', 2: 'Álommanó', 3: 'Álmodó'}])
     //const [roleCount, setroleCount] = useState({3:[0,1,2], 4: [1,1,2,2], 5: [0,0,1,2,2], 6: [0,0,0,1,1,2], 7: [0,0,0,1,1,2,2], 8: [0,0,0,0,1,1,1,2], 9: [0,0,0,0,1,1,1,2,2]})
-    const [roleCount, setroleCount] = useState([])
+    const [roleCount, setroleCount] = useState({4:[0, 1, 2, 2], 5:[0,0,1,2,2], 6:[0,0,0,1,1,2], 7:[0,0,0,1,1,2,2], 8:[0,0,0,0,1,1,1,2],9:[0,0,0,0,1,1,1,2,2,2], 9:[0,0,0,0,0,1,1,1,1,2], 10:[0,0,0,0,0,1,1,1,1,2]})
 
     function getSzo() {
         const keys = Object.keys(valaszthatoKartyak);

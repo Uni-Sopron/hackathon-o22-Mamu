@@ -1,7 +1,7 @@
 import React, { useState, useEffects } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDataContext } from "../DataProvider";
-import "../styles/First.css";
+import "../styles/styles.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -31,27 +31,42 @@ export const First = () => {
     return Math.floor(Math.random() * max);
   }
 
+  function shuffle(array) { array.sort(() => Math.random() - 0.5); } 
+
   function addPlayers() {
     /* Maximum 10 játékos */
     if (players.length <= 9 && data.length !== 0) {
 
       setPlayers([
         ...players,
-        { name: data, point: 0, whois: /*getRandomInt(4)*/ 0 },
+        { name: data, point: 0, whois: 0 },
       ]);
-/*
-      for (let player of players) {
-        console.log(player);
-      } 
-      */
+
     }
-    
+
   }
 
   function minPlayers() {
     /* Legalább 4 játékos */
-    if (players.length >= 4) {      
+    if (players.length >= 4) {  
+      
+      // Játékos szerepek kiosztása
+      let rolesWhichShouldBe = roleCount[players.length].sort((a, b) => 0.5 - Math.random());
+      rolesWhichShouldBe.pop()
+      rolesWhichShouldBe.push(3) //3 : álmodó
+      rolesWhichShouldBe = rolesWhichShouldBe.sort((a, b) => 0.5 - Math.random());
+      
+
+      let updatedPlayers = [];
+      for (let i = 0; i < players.length; i++) {
+        console.log({ name: players[i].name, point: 0, whois: rolesWhichShouldBe[i] });
+        updatedPlayers.push({ name: players[i].name, point: 0, whois: rolesWhichShouldBe[i] });
+      }
+
+      setPlayers(updatedPlayers);
+
       navigate("/Second");
+      
     } else {
       toast.error("Minimum 4 játékos szükséges!", {
         position: "top-center",

@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
 import { useDataContext } from "../DataProvider";
 import { useTimer } from "react-timer-hook";
-import "../styles/Second.css";
+import "../styles/styles.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
