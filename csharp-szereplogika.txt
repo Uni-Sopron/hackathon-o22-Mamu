@@ -1,0 +1,71 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace almodas
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int jatekosszam = 0, alommano = 0, tunder = 0, mumus=0, almodo = 1;
+            Console.Write("Jatekos:");
+            jatekosszam = int.Parse(Console.ReadLine());
+            switch (jatekosszam)
+            {
+                case 4:
+                    int[] array4 = new int[3];
+                    // Elso elem = tunder, masodik elem = mumus, harmadik elem = alommano
+                    array4[0] = 1;
+                    array4[1] = 1;
+                    array4[2] = 2;
+                    Random torles = new Random();
+                    int torlendo = torles.Next(0, 3);
+                    array4[torlendo] -= 1;
+                    Console.Write(torlendo +" ");
+                    for(int i = 0; i < array4.Length; i++)
+                    {
+                        Console.Write(array4[i] + ";");
+                    }
+                break;
+
+                case 5:
+                    Console.WriteLine();
+                    int[] array5 = new int[3];
+                    // Elso elem = tunder, masodik elem = mumus, harmadik elem = alommano
+                    array5[0] = 2;
+                    array5[1] = 1;
+                    array5[2] = 2;
+                    Random torles2 = new Random();
+                    int torlendo2 = torles2.Next(0, 3);
+                    array5[torlendo2] -= 1;
+                    Console.Write(torlendo2 + " ");
+                    for (int i = 0; i < array5.Length; i++)
+                    {
+                        Console.Write(array5[i] + ";");
+                    }
+                    break;
+                case 6:
+                     //ugyanaz
+                case 7:
+                    //ugyanaz
+                break;
+
+                case 8:
+                    //ugyanaz
+                break;
+
+                case 9:
+                    //ugyanaz
+                break;
+
+                case 10:
+                    // ugyanaz
+                break;
+            }          
+            Console.ReadLine();
+        }
+    }
+}
