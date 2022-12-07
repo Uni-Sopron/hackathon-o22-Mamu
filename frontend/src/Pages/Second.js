@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useState, useEffect} from "react";
 import { useDataContext } from "../DataProvider";
 import { useTimer } from "react-timer-hook";
 import "../styles/styles.css";
@@ -13,6 +13,8 @@ function MyTimer({ expiryTimestamp }) {
       onExpire: () => alert("Lejárt az idő!"),
     }
   );
+
+  const [ isVisible, setIsVisible ] = useState(true);
   const { players, timer, roles, getSzo, kitalalando } = useDataContext();
 
   function showRoles() {
@@ -67,12 +69,22 @@ function MyTimer({ expiryTimestamp }) {
             Szerepek
           </button>
           
+          {
+            isVisible &&
+            <div>
+              {kitalalando && <img src={kitalalando.pic} width="250" height="300"></img>}
+              <h2 style={{color: "white"}}>{kitalalando && kitalalando.name}</h2>
+            </div>
+          }
+          <button className="btn" onClick={()=>setIsVisible(!isVisible)}>Elrejtés/Megjelenítés</button>
+
+          {/* játékosok utalásait nem kell letárolni */}
           <div>
-            {kitalalando && <img src={kitalalando.pic} width="250" height="300"></img>}
-            <h2 style={{color: "white"}}>{kitalalando && kitalalando.name}</h2>
+            <input
+            placeholder="ámodó tippje" /> 
+            <button className="btn">OK</button>
           </div>
-          <input placeholder="utalás"/>
-          <button>OK</button>
+
 
         </div>
       </div>
