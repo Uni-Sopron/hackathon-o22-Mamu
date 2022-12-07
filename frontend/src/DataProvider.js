@@ -29,7 +29,7 @@ export const DataProvider = ({ children }) => {
     const [roleCount, setroleCount] = useState({4:[0, 1, 2, 2], 5:[0,0,1,2,2], 6:[0,0,0,1,1,2], 7:[0,0,0,1,1,2,2], 8:[0,0,0,0,1,1,1,2],9:[0,0,0,0,1,1,1,2,2], 10:[0,0,0,0,0,1,1,1,1,2]}) // ezek kozul barmelyik kimaradhat, az lesz az almodo (3) !
     const [helyesTipSzam, setHelyesTipSzam] = useState(0);
     const [helytelenTipSzam, setHelytelenTipSzam] = useState(0);
-
+    const [ isLastTip, setIsLastTip ] = useState(false); // idozito lejarta utan true
 
     function getSzo() {
         const keys = Object.keys(valaszthatoKartyak);
@@ -56,9 +56,13 @@ export const DataProvider = ({ children }) => {
 
         setTip("");
 
+        /*
         console.log('helyes: ' + helyesTipSzam);
         console.log('helytelen: ' + helytelenTipSzam);
         console.log('tippek: ' + tipsDreamer);
+        */
+       
+        isLastTip && setIsLastTip(false);
 
     }
 
@@ -81,7 +85,9 @@ export const DataProvider = ({ children }) => {
         tip,
         setTip,
         helytelenTipSzam,
-        helyesTipSzam
+        helyesTipSzam,
+        isLastTip,
+        setIsLastTip
     }    
     
     return (

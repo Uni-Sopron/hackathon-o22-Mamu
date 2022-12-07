@@ -14,7 +14,7 @@ function MyTimer({ expiryTimestamp }) {
   );
 
   const [ isVisible, setIsVisible ] = useState(true); // kep + szo eltuntetesere/megjelenitesere
-  const { players, roles, getSzo, kitalalando, checkTip, tip, setTip, helyesTipszam, helytelenTipSzam } = useDataContext();
+  const { players, roles, getSzo, kitalalando, checkTip, tip, setTip, helyesTipSzam, helytelenTipSzam, isLastTip, setIsLastTip } = useDataContext();
 
   function showRoles() {
     toast.info(
@@ -35,6 +35,10 @@ function MyTimer({ expiryTimestamp }) {
   useEffect(() => {
     getSzo()
   }, []); // egyszer fut le, első rendernél
+
+  useEffect(() => {
+    setIsLastTip(true);
+  }, [isRunning]); 
 
   return (
     <>
@@ -79,7 +83,7 @@ function MyTimer({ expiryTimestamp }) {
           }
           <button className="btn" onClick={()=>setIsVisible(!isVisible)}>Elrejtés/Megjelenítés</button>
 
-          {/* játékosok utalásait nem kell letárolni */}
+          { (isRunning || isLastTip )&& 
           <div className="input-container">
             <input
             value={tip}
@@ -89,10 +93,10 @@ function MyTimer({ expiryTimestamp }) {
             /> 
             <button className="btn" onClick={checkTip}>OK</button>
           </div>
+          }
 
           <div>
-            <p>Helyes: {helyesTipszam}</p>
-            {/*console.log(helyesTipszam)*/}
+            <p>Helyes: {helyesTipSzam}</p>
             <p>Helytelen: {helytelenTipSzam}</p>
           </div>
 
