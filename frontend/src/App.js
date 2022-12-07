@@ -4,6 +4,7 @@ import { DataProvider } from './DataProvider'
 import {First} from "./Pages/First";
 import {Second} from "./Pages/Second";
 import {Third} from "./Pages/Third";
+import "./styles/styles.css"
 
 const App = () => {
   return (

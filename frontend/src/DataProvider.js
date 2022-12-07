@@ -18,15 +18,18 @@ export const DataProvider = ({ children }) => {
         "harcos":"https://media.istockphoto.com/vectors/fighter-vector-id476457587?k=6&m=476457587&s=170667a&w=0&h=SHIX_DZe_N4TEobBLuzD6y4NtUPoetoPiTLwgd8ZCoE=",
         "papa":"https://media.istockphoto.com/vectors/boy-and-grandpa-reading-vector-id517097603?k=6&m=517097603&s=170667a&w=0&h=Ukex_jjSXskvgq2z040empKoOIqp1Kjg49m8HpYrP5o="
         } ) // amíg backend nincs behúzva
-    const [kartyak, setKartyak] = useState([])
-    const [kitalalando, setKitalalando] = useState({})
-    const [tipsDreamer, setTipsDreamer] = useState([])
-    const [tipsPlayers, setTipsPlayers] = useState([])
+    const [kartyak, setKartyak] = useState([]) // eddigi kitalalando feladvanyok
+    const [kitalalando, setKitalalando] = useState({}) // aktualis feladvany; {"name":"kutya", "pic":"..."}
+    const [tipsDreamer, setTipsDreamer] = useState([]) // almodo tippjei
+    const [ tip, setTip ] = useState("");
+    const [tipsPlayers, setTipsPlayers] = useState([]) // utalasok, de erre nincs szukseg, nem kell letarolni
     const [players, setPlayers] = useState([]) // [{name:player1, point:0, whatis:{}}]
     const [timer, setTimer] = useState(1);
     const [roles, setRoles] = useState([{0: 'Tündér', 1: 'Mumus', 2: 'Álommanó', 3: 'Álmodó'}])
-    //const [roleCount, setroleCount] = useState({3:[0,1,2], 4: [1,1,2,2], 5: [0,0,1,2,2], 6: [0,0,0,1,1,2], 7: [0,0,0,1,1,2,2], 8: [0,0,0,0,1,1,1,2], 9: [0,0,0,0,1,1,1,2,2]})
-    const [roleCount, setroleCount] = useState({4:[0, 1, 2, 2], 5:[0,0,1,2,2], 6:[0,0,0,1,1,2], 7:[0,0,0,1,1,2,2], 8:[0,0,0,0,1,1,1,2],9:[0,0,0,0,1,1,1,2,2,2], 9:[0,0,0,0,0,1,1,1,1,2], 10:[0,0,0,0,0,1,1,1,1,2]})
+    const [roleCount, setroleCount] = useState({4:[0, 1, 2, 2], 5:[0,0,1,2,2], 6:[0,0,0,1,1,2], 7:[0,0,0,1,1,2,2], 8:[0,0,0,0,1,1,1,2],9:[0,0,0,0,1,1,1,2,2], 10:[0,0,0,0,0,1,1,1,1,2]}) // ezek kozul barmelyik kimaradhat, az lesz az almodo (3) !
+    const [helyesTipSzam, setHelyesTipSzam] = useState(0);
+    const [helytelenTipSzam, setHelytelenTipSzam] = useState(0);
+
 
     function getSzo() {
         const keys = Object.keys(valaszthatoKartyak);
@@ -36,6 +39,27 @@ export const DataProvider = ({ children }) => {
             const value = valaszthatoKartyak[key];
             setKitalalando({"name":key, "pic":value});
         }
+    }
+
+    function checkTip() {
+        if (kitalalando.name === tip) {
+            setHelyesTipSzam(helyesTipSzam+1);
+        } else {
+            setHelytelenTipSzam(helytelenTipSzam+1);
+        }
+
+        // hozzaadjuk az almodo tipp listajahoz
+        setTipsDreamer([...tipsDreamer, kitalalando.name]);
+
+        // uj kep + szo
+        getSzo();
+
+        setTip("");
+
+        console.log('helyes: ' + helyesTipSzam);
+        console.log('helytelen: ' + helytelenTipSzam);
+        console.log('tippek: ' + tipsDreamer);
+
     }
 
     const datas = {
@@ -52,7 +76,12 @@ export const DataProvider = ({ children }) => {
         roles,
         roleCount,
         getSzo,
-        kitalalando
+        kitalalando,
+        checkTip,
+        tip,
+        setTip,
+        helytelenTipSzam,
+        helyesTipSzam
     }    
     
     return (

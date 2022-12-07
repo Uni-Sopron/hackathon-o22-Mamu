@@ -1,29 +1,19 @@
-import React, { useState, useEffects } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDataContext } from "../DataProvider";
-import "../styles/styles.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export const First = () => {
   const {
-    kartyak,
-    setKartyak,
-    tipsDreamer,
-    setTipsDreamer,
-    tipsPlayers,
-    setTipsPlayers,
     players,
     setPlayers,
-    timer,
     setTimer,
     roleCount
   } = useDataContext();
 
-  const [data, setData] = useState();
+  const [playerName, setPlayerName] = useState("");
   const [timerdata, setTimerdata] = useState(1);
-  const [avaible, setAvaible] = useState([]);
-  const [playersHasRole, setplayersHasRole] = useState([])
 
   const navigate = useNavigate();
 
@@ -35,13 +25,14 @@ export const First = () => {
 
   function addPlayers() {
     /* Maximum 10 játékos */
-    if (players.length <= 9 && data.length !== 0) {
+    if (players.length <= 9 && playerName.length !== 0) {
 
       setPlayers([
         ...players,
-        { name: data, point: 0, whois: 0 },
+        { name: playerName, point: 0, whois: 0 }, // whois utolag lesz modositva elinditaskor, mikor fixen tudjuk a jatekosszamot
       ]);
 
+      setPlayerName("");
     }
 
   }
@@ -52,14 +43,14 @@ export const First = () => {
       
       // Játékos szerepek kiosztása
       let rolesWhichShouldBe = roleCount[players.length].sort((a, b) => 0.5 - Math.random());
-      rolesWhichShouldBe.pop()
+      rolesWhichShouldBe.pop() // osszekeveres utan egyet kidobunk
       rolesWhichShouldBe.push(3) //3 : álmodó
-      rolesWhichShouldBe = rolesWhichShouldBe.sort((a, b) => 0.5 - Math.random());
+      rolesWhichShouldBe = rolesWhichShouldBe.sort((a, b) => 0.5 - Math.random()); // ujra megkeverjuk, hogy ne mindig az utolso legyen az almodo
       
 
       let updatedPlayers = [];
       for (let i = 0; i < players.length; i++) {
-        console.log({ name: players[i].name, point: 0, whois: rolesWhichShouldBe[i] });
+        //console.log({ name: players[i].name, point: 0, whois: rolesWhichShouldBe[i] });
         updatedPlayers.push({ name: players[i].name, point: 0, whois: rolesWhichShouldBe[i] });
       }
 
@@ -92,9 +83,10 @@ export const First = () => {
         <span className="text-center">Játékos hozzáadása</span>
         <div className="input-container">
           <input
+            value={playerName}
             type="input"
             className="form__field"
-            onChange={(e) => setData(e.target.value)}
+            onChange={(e) => setPlayerName(e.target.value)}
             required
           />
           <label>Játékos neve</label>
