@@ -58,7 +58,7 @@ export const DataProvider = ({ children }) => {
     }
 
     function checkTip() {
-        if (kitalalando.name === tip || szinonimak[kitalalando.name]?.includes(tip)) {
+        if (kitalalando.name === tip || szinonimak[kitalalando.name]?.includes(tip) || kitalalando.name.normalize("NFD").replace(/[\u0300-\u036f]/g, "") === tip.normalize("NFD").replace(/[\u0300-\u036f]/g, "")) {
             setHelyesTipSzam(helyesTipSzam+1);
         } else {
             setHelytelenTipSzam(helytelenTipSzam+1);
