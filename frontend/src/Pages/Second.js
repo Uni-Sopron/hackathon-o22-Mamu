@@ -3,6 +3,7 @@ import { useDataContext } from "../DataProvider";
 import { useTimer } from "react-timer-hook";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useNavigate } from "react-router-dom";
 
 function MyTimer({ expiryTimestamp }) {
   const { seconds, minutes, hours, isRunning, start, pause, resume } = useTimer(
@@ -15,6 +16,8 @@ function MyTimer({ expiryTimestamp }) {
 
   const [ isVisible, setIsVisible ] = useState(true); // kep + szo eltuntetesere/megjelenitesere
   const { players, roles, getSzo, kitalalando, checkTip, tip, setTip, helyesTipSzam, helytelenTipSzam, isLastTip, setIsLastTip } = useDataContext();
+  
+  const navigate = useNavigate();
 
   function showRoles() {
     toast.info(
@@ -83,16 +86,18 @@ function MyTimer({ expiryTimestamp }) {
           }
           <button className="btn" onClick={()=>setIsVisible(!isVisible)}>Elrejtés/Megjelenítés</button>
 
-          { (isRunning || isLastTip )&& 
+          { (isRunning || isLastTip ) ?
           <div className="input-container">
             <input
             value={tip}
             className="form__field"
-            placeholder="ámodó tippje" 
+            placeholder="álmodó tippje" 
             onChange={(e) => setTip(e.target.value)}
             /> 
             <button className="btn" onClick={checkTip}>OK</button>
           </div>
+          :
+          <button className="btn" onClick={()=>navigate('/Almodo')}>Tovább</button>
           }
 
           <div>
