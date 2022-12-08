@@ -15,7 +15,7 @@ function MyTimer({ expiryTimestamp }) {
   );
 
   const [ isVisible, setIsVisible ] = useState(true); // kep + szo eltuntetesere/megjelenitesere
-  const { players, roles, getSzo, kitalalando, checkTip, tip, setTip, helyesTipSzam, helytelenTipSzam, isLastTip, setIsLastTip } = useDataContext();
+  const { players, roles, getSzo, kitalalando, checkTip, tip, setTip, helyesTipSzam, setHelyesTipSzam, helytelenTipSzam, setHelytelenTipSzam, isLastTip, setIsLastTip, forduloCount } = useDataContext();
   
   const navigate = useNavigate();
 
@@ -43,6 +43,11 @@ function MyTimer({ expiryTimestamp }) {
     setIsLastTip(true);
   }, [isRunning]); 
 
+  useEffect(() => {
+    setHelyesTipSzam(0);
+    setHelytelenTipSzam(0);
+  }, [forduloCount]); // kövi fordulónál nullázzuk a pontokat
+
   return (
     <>
       <div className="box">
@@ -52,6 +57,7 @@ function MyTimer({ expiryTimestamp }) {
         <p className="text-center-p">
           {isRunning ? "Játék folyamatban." : "Játék szüneteltetve / vége."}
         </p>
+        <p>{players.length}/{forduloCount}.forduló</p>
         <div className="button-group">
           {/*
           <button className="btn" onClick={start}>

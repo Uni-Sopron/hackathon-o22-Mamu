@@ -8,11 +8,14 @@ export const AlmodoVisszamondo = () => {
     const [ visszamondottSzo, setVisszamondottSzo ] = useState('');
     const [ visszamondottCount, setVisszamondottCount ] = useState(0);
     const [ probalkozas, setProbalkozas ] = useState(tipsDreamer.length);
+    const [ visszamondottMindent, setVisszamondottMindent ] = useState(false); // pontszamitashoz
 
     const navigate = useNavigate();
 
     function checkVisszamondas() {
         if(probalkozas !== 0) {
+            console.log(tipsDreamer);
+
             setProbalkozas(probalkozas-1)
             if(tipsDreamer.includes(visszamondottSzo)) {
                 setVisszamondottCount(visszamondottCount+1);
@@ -24,14 +27,16 @@ export const AlmodoVisszamondo = () => {
             }
         } else {
             /*
-            // tipsDreamer-ből kidobásra kerül a visszamondott szó, ez azért nem jó
             if(visszamondottCount !== tipsDreamer.length) {
                 console.log("Visszamondtál mindent!")
             }
             */
+
             if (tipsDreamer.length === 0) {
-                console.log("Visszamondtál mindent");
+                //console.log("Visszamondtál mindent");
+                setVisszamondottMindent(true);
             }
+            
         }
     }
 
@@ -42,43 +47,44 @@ export const AlmodoVisszamondo = () => {
         {
             if (players[i].whois === 0) // tündér
             {
-                updatePlayerPoints.push({name: players[i].name, point: helyesTipSzam, whois: players[i].whois})
+                updatePlayerPoints.push({name: players[i].name, point: (players[i].point + helyesTipSzam), whois: players[i].whois})
             }
 
             else if (players[i].whois === 1) // mumus
             {
-                updatePlayerPoints.push({name: players[i].name, point: helytelenTipSzam, whois: players[i].whois})
+                updatePlayerPoints.push({name: players[i].name, point: (players[i].point + helytelenTipSzam), whois: players[i].whois})
             }
 
             else if (players[i].whois === 2)  //álommanó
             { 
                 if (helyesTipSzam === helytelenTipSzam) {
-                    updatePlayerPoints.push({name: players[i].name, point: helyesTipSzam+2, whois: players[i].whois})
+                    updatePlayerPoints.push({name: players[i].name, point: (players[i].point + helyesTipSzam + 2), whois: players[i].whois})
                 }
 
                 else if (helyesTipSzam - helytelenTipSzam === 1 || helyesTipSzam - helytelenTipSzam === - 1) {
                     if (helyesTipSzam > helytelenTipSzam) {
-                        updatePlayerPoints.push({name: players[i].name, point: helyesTipSzam, whois: players[i].whois})
+                        updatePlayerPoints.push({name: players[i].name, point: (players[i].point + helyesTipSzam), whois: players[i].whois})
                     } else {
-                        updatePlayerPoints.push({name: players[i].name, point: helytelenTipSzam, whois: players[i].whois})
+                        updatePlayerPoints.push({name: players[i].name, point: (players[i].point + helytelenTipSzam), whois: players[i].whois})
                     }
                 }
 
                 else if (helyesTipSzam - helytelenTipSzam > 2 || helyesTipSzam - helytelenTipSzam < -2) 
                 {
                     if (helyesTipSzam < helytelenTipSzam) {
-                        updatePlayerPoints.push({name: players[i].name, point: helyesTipSzam, whois: players[i].whois})
+                        updatePlayerPoints.push({name: players[i].name, point: (players[i].point + helyesTipSzam), whois: players[i].whois})
                     } else {
-                        updatePlayerPoints.push({name: players[i].name, point: helytelenTipSzam, whois: players[i].whois})
+                        updatePlayerPoints.push({name: players[i].name, point: (players[i].point + helytelenTipSzam), whois: players[i].whois})
                     }
                 }
             }
 
             else if (players[i].whois === 3)  // álmodó
             {
-                updatePlayerPoints.push({name: players[i].name, point: helyesTipSzam, whois: players[i].whois})
-
-                // +2-t kap ha mindent visszamondott!!
+                visszamondottMindent ? 
+                    updatePlayerPoints.push({name: players[i].name, point: (players[i].point + helyesTipSzam + 2), whois: players[i].whois})
+                    :
+                    updatePlayerPoints.push({name: players[i].name, point: (players[i].point + helyesTipSzam), whois: players[i].whois})
             }
            
         }
@@ -90,7 +96,7 @@ export const AlmodoVisszamondo = () => {
   return (
     <div className="box">
         <div className="container">
-        <h1 className="white">Álmodó, kérlek mondd vissza a kártyákat!</h1>
+        <h1 className="white">Álmodó, kérlek mondd vissza a tippjeidet!</h1>
             <p>Lehetőségek száma: {probalkozas}</p>
             <p>Helyesen visszamondva: {visszamondottCount}</p>
             {probalkozas !== 0 ?
