@@ -68,6 +68,33 @@ export const DataProvider = ({ children }) => {
 
     }
 
+    function szerepKiosztas() {
+        // Játékos szerepek kiosztása
+        //console.log('jatekszabaly szerint: '+ roleCount[players.length]);
+
+        let rolesWhichShouldBe = roleCount[players.length].slice(); // hogy ne legyen referencia, és ne irja felul a roleCountot
+        rolesWhichShouldBe = rolesWhichShouldBe.sort((a, b) => 0.5 - Math.random());
+
+        //console.log('szerepek megkeverve: '+rolesWhichShouldBe);
+
+        rolesWhichShouldBe.pop() // osszekeveres utan egyet kidobunk
+        //console.log('egy szerep kidobva: '+rolesWhichShouldBe);
+
+        rolesWhichShouldBe.push(3) //3 : álmodó
+        //console.log('almodo behelyezve: '+rolesWhichShouldBe);
+
+        rolesWhichShouldBe = rolesWhichShouldBe.sort((a, b) => 0.5 - Math.random()); // ujra megkeverjuk, hogy ne mindig az utolso legyen az almodo
+        //console.log('szerepek megkeverve almodoval egyutt: '+rolesWhichShouldBe);
+
+        let updatedPlayers = [];
+        for (let i = 0; i < players.length; i++) {
+            //console.log({ name: players[i].name, point: 0, whois: rolesWhichShouldBe[i] });
+            updatedPlayers.push({ name: players[i].name, point: players[i].point, whois: rolesWhichShouldBe[i] });
+        }
+
+      setPlayers(updatedPlayers);
+    }
+
     const datas = {
         kartyak,
         setKartyak,
@@ -91,7 +118,8 @@ export const DataProvider = ({ children }) => {
         forduloCount,
         setForduloCount,
         setHelyesTipSzam,
-        setHelytelenTipSzam
+        setHelytelenTipSzam,
+        szerepKiosztas
     }    
     
     return (

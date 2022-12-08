@@ -36,8 +36,9 @@ export const AlmodoVisszamondo = () => {
                 //console.log("Visszamondtál mindent");
                 setVisszamondottMindent(true);
             }
-            
+
         }
+        setVisszamondottSzo("");
     }
 
     function pontSzamitas() {

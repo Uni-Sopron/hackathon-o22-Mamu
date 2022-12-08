@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { useDataContext } from "../DataProvider";
 import { useTimer } from "react-timer-hook";
 import { ToastContainer, toast } from "react-toastify";
@@ -14,9 +14,9 @@ function MyTimer({ expiryTimestamp }) {
     }
   );
 
-  const [ isVisible, setIsVisible ] = useState(true); // kep + szo eltuntetesere/megjelenitesere
-  const { players, roles, getSzo, kitalalando, checkTip, tip, setTip, helyesTipSzam, setHelyesTipSzam, helytelenTipSzam, setHelytelenTipSzam, isLastTip, setIsLastTip, forduloCount } = useDataContext();
-  
+  const [isVisible, setIsVisible] = useState(true); // kep + szo eltuntetesere/megjelenitesere
+  const { players, roles, getSzo, kitalalando, checkTip, tip, setTip, helyesTipSzam, setHelyesTipSzam, helytelenTipSzam, setHelytelenTipSzam, isLastTip, setIsLastTip, forduloCount, szerepKiosztas } = useDataContext();
+
   const navigate = useNavigate();
 
   function showRoles() {
@@ -41,12 +41,15 @@ function MyTimer({ expiryTimestamp }) {
 
   useEffect(() => {
     setIsLastTip(true);
-  }, [isRunning]); 
+  }, [isRunning]);
 
+  /*
   useEffect(() => {
     setHelyesTipSzam(0);
     setHelytelenTipSzam(0);
+    szerepKiosztas(); // itt nem jó
   }, [forduloCount]); // kövi fordulónál nullázzuk a pontokat
+*/
 
   return (
     <>
@@ -69,7 +72,7 @@ function MyTimer({ expiryTimestamp }) {
             Szünet
           </button>
           */}
-          <button className="btn" onClick={isRunning ? pause: resume}>
+          <button className="btn" onClick={isRunning ? pause : resume}>
             Szünet/Folytatás
           </button>
           <button
@@ -80,30 +83,30 @@ function MyTimer({ expiryTimestamp }) {
           >
             Szerepek
           </button>
-          
+
           {
             isVisible ?
-            <div>
-              {kitalalando && <img src={kitalalando.pic} width="250" height="300" alt="kartya"></img>}
-              <h2 style={{color: "white"}}>{kitalalando && kitalalando.name}</h2>
+              <div>
+                {kitalalando && <img src={kitalalando.pic} width="250" height="300" alt="kartya"></img>}
+                <h2 style={{ color: "white" }}>{kitalalando && kitalalando.name}</h2>
+              </div>
+              :
+              <img src="https://toppng.com/uploads/preview/red-question-mark-png-11552242986dielb7cmf4.png" width="250" height="300" alt="elrejtett kartya"></img>
+          }
+          <button className="btn" onClick={() => setIsVisible(!isVisible)}>Elrejtés/Megjelenítés</button>
+
+          {(isRunning || isLastTip) ?
+            <div className="input-container">
+              <input
+                value={tip}
+                className="form__field"
+                placeholder="álmodó tippje"
+                onChange={(e) => setTip(e.target.value)}
+              />
+              <button className="btn" onClick={checkTip}>OK</button>
             </div>
             :
-            <img src="https://toppng.com/uploads/preview/red-question-mark-png-11552242986dielb7cmf4.png" width="250" height="300" alt="elrejtett kartya"></img>
-          }
-          <button className="btn" onClick={()=>setIsVisible(!isVisible)}>Elrejtés/Megjelenítés</button>
-
-          { (isRunning || isLastTip ) ?
-          <div className="input-container">
-            <input
-            value={tip}
-            className="form__field"
-            placeholder="álmodó tippje" 
-            onChange={(e) => setTip(e.target.value)}
-            /> 
-            <button className="btn" onClick={checkTip}>OK</button>
-          </div>
-          :
-          <button className="btn" onClick={()=>navigate('/Almodo')}>Tovább</button>
+            <button className="btn" onClick={() => navigate('/Almodo')}>Tovább</button>
           }
 
           <div>

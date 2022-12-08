@@ -9,7 +9,7 @@ export const First = () => {
     players,
     setPlayers,
     setTimer,
-    roleCount
+    szerepKiosztas
   } = useDataContext();
 
   const [playerName, setPlayerName] = useState("");
@@ -41,20 +41,7 @@ export const First = () => {
     /* Legalább 4 játékos */
     if (players.length >= 4) {  
       
-      // Játékos szerepek kiosztása
-      let rolesWhichShouldBe = roleCount[players.length].sort((a, b) => 0.5 - Math.random());
-      rolesWhichShouldBe.pop() // osszekeveres utan egyet kidobunk
-      rolesWhichShouldBe.push(3) //3 : álmodó
-      rolesWhichShouldBe = rolesWhichShouldBe.sort((a, b) => 0.5 - Math.random()); // ujra megkeverjuk, hogy ne mindig az utolso legyen az almodo
-      
-
-      let updatedPlayers = [];
-      for (let i = 0; i < players.length; i++) {
-        //console.log({ name: players[i].name, point: 0, whois: rolesWhichShouldBe[i] });
-        updatedPlayers.push({ name: players[i].name, point: 0, whois: rolesWhichShouldBe[i] });
-      }
-
-      setPlayers(updatedPlayers);
+      szerepKiosztas();
 
       navigate("/Second");
       
