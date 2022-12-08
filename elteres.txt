@@ -1,0 +1,24 @@
+string s;
+            string has;
+            Console.Write("Adja meg a szavakat:");
+            s = Console.ReadLine();
+            Console.Write("Második szó:");
+            has = Console.ReadLine();
+            string min;
+            string max;
+            int hossz1 = has.Length;
+            int hossz2 = s.Length;
+            int elteres = 0;
+            int index = 0;
+            for (int i = 0; i < hossz2; i++)
+            {
+                if(s[i] != has[i])
+                {
+                    elteres++;                   
+                }
+            }
+            if(elteres > 1)
+            {
+                Console.WriteLine("A tipp hibás");
+            }
+            Console.Write("Eltérés:{0}", elteres);
