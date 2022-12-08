@@ -23,13 +23,14 @@ export const DataProvider = ({ children }) => {
     const [tipsDreamer, setTipsDreamer] = useState([]) // almodo tippjei
     const [ tip, setTip ] = useState("");
     const [tipsPlayers, setTipsPlayers] = useState([]) // utalasok, de erre nincs szukseg, nem kell letarolni
-    const [players, setPlayers] = useState([]) // [{name:player1, point:0, whatis:{}}]
+    const [players, setPlayers] = useState([]) // [{name:player1, point:0, whois:{}}]
     const [timer, setTimer] = useState(1);
     const [roles, setRoles] = useState([{0: 'Tündér', 1: 'Mumus', 2: 'Álommanó', 3: 'Álmodó'}])
     const [roleCount, setroleCount] = useState({4:[0, 1, 2, 2], 5:[0,0,1,2,2], 6:[0,0,0,1,1,2], 7:[0,0,0,1,1,2,2], 8:[0,0,0,0,1,1,1,2],9:[0,0,0,0,1,1,1,2,2], 10:[0,0,0,0,0,1,1,1,1,2]}) // ezek kozul barmelyik kimaradhat, az lesz az almodo (3) !
     const [helyesTipSzam, setHelyesTipSzam] = useState(0);
     const [helytelenTipSzam, setHelytelenTipSzam] = useState(0);
     const [ isLastTip, setIsLastTip ] = useState(false); // idozito lejarta utan true
+    const [forduloCount, setForduloCount] = useState(1); // fordulo szama, ahol tart a jatek
 
     function getSzo() {
         const keys = Object.keys(valaszthatoKartyak);
@@ -87,7 +88,9 @@ export const DataProvider = ({ children }) => {
         helytelenTipSzam,
         helyesTipSzam,
         isLastTip,
-        setIsLastTip
+        setIsLastTip,
+        forduloCount,
+        setForduloCount
     }    
     
     return (
