@@ -18,6 +18,22 @@ export const DataProvider = ({ children }) => {
         "harcos":"https://media.istockphoto.com/vectors/fighter-vector-id476457587?k=6&m=476457587&s=170667a&w=0&h=SHIX_DZe_N4TEobBLuzD6y4NtUPoetoPiTLwgd8ZCoE=",
         "papa":"https://media.istockphoto.com/vectors/boy-and-grandpa-reading-vector-id517097603?k=6&m=517097603&s=170667a&w=0&h=Ukex_jjSXskvgq2z040empKoOIqp1Kjg49m8HpYrP5o="
         } ) // amíg backend nincs behúzva
+    const [szinonimak, setSzinonimak] = useState(
+        {
+            "kutya":["eb","kutyus","kutyuli","véreb","kutyu","házőrző", "kutyika", "dog"],
+            "szék":["ülés","ülőhely","ülőke","puff","ülőke","zsámoly","hokedli","sámli","ülőalkalmatosság"],
+            "számítógép":["PC","gép", "pc", "computer"],
+            "telefon":["mobiltelefon","mobil","telcsi","távbeszélő","teló"],
+            "kard":["szablya","tör","pallos"],
+            "korona":["fejdísz","fejék","diadém","tiara","párta"],
+            "érme":["pénz","fizetőeszköz","bankjegy","zseton","kápé","lé","lóvé"],
+            "ház":["épület","lakás","ingatlan","otthon","kecó"],
+            "harcos":["katona"],
+            "egér":["rágcsáló","cincogó","cinci"],
+            "papa":["fater","atya","apuka","nagyapa","tata","nagyfater"]
+        }
+    ) // amíg nincs backend
+
     const [kartyak, setKartyak] = useState([]) // eddigi kitalalando feladvanyok
     const [kitalalando, setKitalalando] = useState({}) // aktualis feladvany; {"name":"kutya", "pic":"..."}
     const [tipsDreamer, setTipsDreamer] = useState([]) // almodo tippjei
@@ -42,7 +58,7 @@ export const DataProvider = ({ children }) => {
     }
 
     function checkTip() {
-        if (kitalalando.name === tip) {
+        if (kitalalando.name === tip || szinonimak[kitalalando.name]?.includes(tip)) {
             setHelyesTipSzam(helyesTipSzam+1);
         } else {
             setHelytelenTipSzam(helytelenTipSzam+1);
@@ -119,7 +135,9 @@ export const DataProvider = ({ children }) => {
         setForduloCount,
         setHelyesTipSzam,
         setHelytelenTipSzam,
-        szerepKiosztas
+        szerepKiosztas,
+        szinonimak, 
+        setSzinonimak
     }    
     
     return (
